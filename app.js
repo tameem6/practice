@@ -1,29 +1,52 @@
-var http= require('http');
-var fs = require('fs');
+const express = require('express');
+const jwt = require('jsonwebtoken');
 
+var app=express();
+const bodyParser = require('body-parser');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
-http.createServer(function(req,res) {
-    if(req.url==='/' || req.url=='/home')
-    {
-        res.writeHead(200,{'Content-type':'text/html'});
-        var RS = fs.createReadStream(__dirname + '/index.html', 'utf8').pipe(res);
+var user = {
+    id: 1,
+    name : "tameem"
+};
 
+app.get('/login', (req,res)=>{
+    let token = jwt.sign({user}, 'secret');
+    res.json({
+        token
+    });
+
+});
+
+app.post('/profile', verifyToken, (req,res) =>{
+    jwt.verify(req.token, 'secret', (err,authData) => {
+        if(err){
+            res.sendStatus(403);
+        }
+        else {
+            res.json({
+                message : 'User info here',
+                authData
+            });
+        }
+
+    });
+});
+app.listen(8080);
+
+function verifyToken(req,res,next){
+    try{
+        //Split header and extract token
+        const token = req.headers.authorization.split(" ")[1];
+        const decoded = jwt.verify(token, 'secret');
+        req.userData = decoded;
+        next();
     }
-    else if(req.url === '/api')
-    {
-        res.writeHead(200,{'Content-type' : 'application/json'});
-        var myObj= {
-            name: 'Random',
-            age:23,
-            gender: 'Male'
-        };
-        res.end(JSON.stringify(myObj));
+    catch(err){
+        return res.status(401).json({
+            message : "Auth failed"
+        });
     }
-    else
-    {
-        res.writeHead(200, {'Content-type':'text/plain'});
-        res.end("404 Page Not Found");
-    }
-}).listen(8080);
-console.log("Server running");
+}

@@ -1,0 +1,25 @@
+{
+  "name": "itrain",
+  "version": "1.0.0",
+  "description": "Pracice Web Dev",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tameem6/practice.git"
+  },
+  "author": "Me",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tameem6/practice/issues"
+  },
+  "homepage": "https://github.com/tameem6/practice#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^1.18.11"
+  }
+}
