@@ -15,7 +15,7 @@ app.get('/', (req,res) =>{
     res.send("Use /login");
 });
 app.get('/login', (req,res)=>{
-    let token = jwt.sign({user}, 'secret');
+    let token = jwt.sign(user, 'secret');
     res.json({
         token
     });
@@ -23,18 +23,11 @@ app.get('/login', (req,res)=>{
 });
 
 app.post('/profile', verifyToken, (req,res) =>{
-    jwt.verify(req.token, 'secret', (err,authData) => {
-        if(err){
-            res.sendStatus(403);
-        }
-        else {
-            res.json({
-                message : 'User info here',
-                authData
-            });
-        }
-
-    });
+    res.json({
+        success: true,
+        message: "User info here",
+        user
+    })
 });
 app.listen(process.env.PORT || 8080);
 
