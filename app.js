@@ -13,7 +13,7 @@ var user = {
 };
 app.get('/', (req,res) =>{
     res.send("Use /login");
-}
+});
 app.get('/login', (req,res)=>{
     let token = jwt.sign({user}, 'secret');
     res.json({
