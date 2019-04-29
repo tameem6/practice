@@ -36,7 +36,7 @@ app.post('/profile', verifyToken, (req,res) =>{
 
     });
 });
-app.listen(8080);
+app.listen(process.env.PORT || 8080);
 
 function verifyToken(req,res,next){
     try{
