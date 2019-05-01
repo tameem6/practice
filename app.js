@@ -22,21 +22,26 @@ var exuser= {
 app.get('/', (req,res) =>{
     res.send("Use /login");
 });
-app.get('/login', (req,res)=>{
+app.post('/login', (req,res)=>{
     users.find({username: 'tameem6', password : 'wxyz'}, (err,user) => {
-      if(err)
+      if(err){
         return console.log(err);
-      else if(!user)
+      }
+      else if(!user){
         console.log('User not found');
+      }
+        let token = jwt.sign({user}, 'secret');
+        res.json({
+            token
+        });
+    
     });
-    let token = jwt.sign(user, 'secret');
-    res.json({
-        token
-    });
+    
 
 });
 
 app.post('/profile', verifyToken, (req,res) =>{
+    
     res.json({
         success: true,
         message: "User info here",
