@@ -20,7 +20,7 @@ var exuser= {
 
 
 app.get('/', (req,res) =>{
-    res.send("Use /login");
+    res.send("Use POST /login");
 });
 app.post('/login', (req,res)=>{
     users.find({username: 'tameem6', password : 'wxyz'}, (err,user) => {
