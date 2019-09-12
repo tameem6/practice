@@ -2,7 +2,7 @@ var mongoose=require("mongoose");
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const _app = require('./config.js');
-mongoose.connect('mongodb+srv://tameem:91i2ta@cluster0-i1pux.mongodb.net/test?retryWrites=true');
+mongoose.connect('mongodb+srv://tameem:'passwordHere'@cluster0-i1pux.mongodb.net/test?retryWrites=true');
 
 
 var app=express();
