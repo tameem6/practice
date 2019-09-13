@@ -2,7 +2,7 @@ var mongoose=require("mongoose");
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const _app = require('./config.js');
-mongoose.connect('mongodb+srv://tameem:'passwordHere'@cluster0-i1pux.mongodb.net/test?retryWrites=true');
+mongoose.connect('mongodb+srv://'+_app.user+':'+_app.password+'@cluster0-i1pux.mongodb.net/test?retryWrites=true');
 
 
 var app=express();
@@ -23,7 +23,7 @@ app.get('/', (req,res) =>{
     res.send("Use POST /login");
 });
 app.post('/login', (req,res)=>{
-    users.find({username: 'tameem6', password : 'wxyz'}, (err,user) => {
+    users.find({username: exuser.username, password : exuser.password}, (err,user) => {
       if(err){
         return console.log(err);
       }
